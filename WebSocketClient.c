@@ -4,6 +4,7 @@
 #include <strings.h>
 #include "error.h"
 #include "WebSocketClient.h"
+#include "debug.h"
 
 
 //Host: server.example.com
@@ -14,15 +15,30 @@
 //Sec-WebSocket-Version: 13
 //Origin: http://example.com
 
-//ws_handshake_t default_hs = {
-//    {"Host", NULL},
-//    {"Upgrade", NULL},
-//    {"Connection", NULL},
-//    {"Sec-WebSocket-Key", NULL},
-//    {"Sec-WebSocket-Protocol", NULL},
-//    {"Sec-WebSocket-Version", NULL},
-//    {"Origin", NULL},
-//    };
+ws_handshake_t default_hs = {
+	.elems = {
+	{"Host", "server.example.com"},
+    {"Upgrade", "websocket"},
+    {"Connection", "Upgrade"},
+    {"Sec-WebSocket-Key", "x3JJHMbDL1EzLkh9GBhXDw=="},
+    {"Sec-WebSocket-Protocol", "chat, superchat"},
+    {"Sec-WebSocket-Version", "13"},
+    {"Origin", "http://example.com"},
+	{NULL, NULL},
+	{NULL, NULL},
+	{NULL, NULL},
+	{NULL, NULL},
+	{NULL, NULL},
+	{NULL, NULL},
+	{NULL, NULL},
+	{NULL, NULL},
+	{NULL, NULL},
+	{NULL, NULL},
+	{NULL, NULL},
+	{NULL, NULL},
+	{NULL, NULL},
+	}
+};
 
 extern int g_sockfd;
 extern char g_txBuffer[1024];
@@ -42,10 +58,8 @@ char* WSClient_SendHandshake(ws_handshake_t *hsList)
         buff_len += sprintf(g_txBuffer + buff_len, "%s: %s\r\n", hsList->elems[idx].attr_name, hsList->elems[idx].attr_val);
     }
     buff_len += sprintf(g_txBuffer + buff_len, "\r\n");
-    
-	for(idx = 0; idx < buff_len; idx++){
-		printf("g_txBuffer[%d] = 0x%x",idx, g_txBuffer[idx]);
-	}
+
+	TRACE("%s", g_txBuffer);
     
     sent_len = write(g_sockfd,g_txBuffer, buff_len);
     if (sent_len < 0) {

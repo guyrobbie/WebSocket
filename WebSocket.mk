@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=GuyR
-Date                   :=15/02/16
+Date                   :=16/02/16
 CodeLitePath           :="/home/guyr/.codelite"
 LinkerName             :=/usr/bin/g++
 SharedObjectLinkerName :=/usr/bin/g++ -shared -fPIC
@@ -60,7 +60,7 @@ AS       := /usr/bin/as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/main.c$(ObjectSuffix) $(IntermediateDirectory)/WebSocketClient.c$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.c$(ObjectSuffix) $(IntermediateDirectory)/WebSocketClient.c$(ObjectSuffix) $(IntermediateDirectory)/error.c$(ObjectSuffix) 
 
 
 
@@ -106,6 +106,14 @@ $(IntermediateDirectory)/WebSocketClient.c$(DependSuffix): WebSocketClient.c
 
 $(IntermediateDirectory)/WebSocketClient.c$(PreprocessSuffix): WebSocketClient.c
 	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/WebSocketClient.c$(PreprocessSuffix) "WebSocketClient.c"
+
+$(IntermediateDirectory)/error.c$(ObjectSuffix): error.c $(IntermediateDirectory)/error.c$(DependSuffix)
+	$(CC) $(SourceSwitch) "/home/guyr/GitHub/Projects/WebSocket/error.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/error.c$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/error.c$(DependSuffix): error.c
+	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/error.c$(ObjectSuffix) -MF$(IntermediateDirectory)/error.c$(DependSuffix) -MM "error.c"
+
+$(IntermediateDirectory)/error.c$(PreprocessSuffix): error.c
+	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/error.c$(PreprocessSuffix) "error.c"
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

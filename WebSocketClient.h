@@ -2,7 +2,7 @@
 #define _WSClient_H_
 
 #define MAX_ELEMS           20
-#define HANDSHAKE_HEADER    "GET /chat HTTP/1.1"
+#define HANDSHAKE_HEADER    "GET /chat HTTP/1.1\r\n"
 
 typedef struct _ws_hs_element_t{
     char *attr_name;

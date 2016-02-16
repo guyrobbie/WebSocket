@@ -25,6 +25,8 @@
     <File Name="Makefile"/>
     <File Name="error.h"/>
     <File Name="WebSocketClient.h"/>
+    <File Name="debug.h"/>
+    <File Name="error.c"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>
