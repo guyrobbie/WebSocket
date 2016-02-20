@@ -18,7 +18,6 @@ char g_rxBuffer[1024];
 int main(int argc, char *argv[])
 {
     int portno, ret;
-	//ws_handshake_t default_hs = {0};
 
     struct sockaddr_in serv_addr;
     struct hostent *server;
